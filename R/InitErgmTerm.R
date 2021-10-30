@@ -162,6 +162,48 @@ nodecov_names <- function(nodecov, prefix=NULL){
 # arguments from interfering. Eventually, when base= is removed, it
 # will need to be set to -1 either here or by search-and-replace.
 LEVELS_BASE1 <- NULL
+                                                           
+InitErgmTerm.triangles1<-function (nw, arglist, ..., version=packageVersion("ergm")) {
+  if(version <= as.package_version("3.9.4")){
+    a <- check.ErgmTerm(nw, arglist,
+                        varnames = c("attrname", "diff", "levels"),
+                        vartypes = c("character", "logical", "character,numeric,logical"),
+                        defaultvalues = list(NULL, FALSE, NULL),
+                        required = c(FALSE, FALSE, FALSE))
+    attrarg <- a$attrname
+    levels <- if(!is.null(a$levels)) I(a$levels) else NULL    
+  }else{
+    a <- check.ErgmTerm(nw, arglist,
+                        varnames = c("attr", "diff", "levels"),
+                        vartypes = c(ERGM_VATTR_SPEC, "logical", ERGM_LEVELS_SPEC),
+                        defaultvalues = list(NULL, FALSE, NULL),
+                        required = c(FALSE, FALSE, FALSE))
+    attrarg <- a$attr
+    levels <- a$levels      
+  }
+
+  diff <- a$diff
+  if(!is.null(attrarg)) {
+    nodecov <- ergm_get_vattr(attrarg, nw)
+    attrname <- attr(nodecov, "name")
+    u <- ergm_attr_levels(levels, nodecov, nw, levels = sort(unique(nodecov)))
+    nodecov <- match(nodecov,u,nomatch=length(u)+1)
+    ui <- seq(along=u)
+    if (!diff) {
+      coef.names <- paste("triangle1",attrname,sep=".")
+      inputs <- c(nodecov)
+    } else {
+      coef.names <- paste("triangle1",attrname, u, sep=".")
+      inputs <- c(ui, nodecov)
+      attr(inputs, "ParamsBeforeCov") <- length(ui)
+    }
+  }else{
+    coef.names <- "triangle1"
+    inputs <- NULL
+  }
+  list(name="triangle1", coef.names=coef.names, inputs=inputs, minval=0)
+}
+
 
 #=======================InitErgmTerm functions:  A============================#
 
