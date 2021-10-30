@@ -163,7 +163,7 @@ nodecov_names <- function(nodecov, prefix=NULL){
 # will need to be set to -1 either here or by search-and-replace.
 LEVELS_BASE1 <- NULL
                                                            
-InitErgmTerm.triangles1<-function (nw, arglist, ..., version=packageVersion("ergm")) {
+InitErgmTerm.triangle1<-function (nw, arglist, ..., version=packageVersion("ergm")) {
   if(version <= as.package_version("3.9.4")){
     a <- check.ErgmTerm(nw, arglist,
                         varnames = c("attrname", "diff", "levels"),
