@@ -2937,6 +2937,38 @@ InitErgmTerm.edges<-function(nw, arglist, ...) {
 
 
 ################################################################################
+ #' @name edges1-ergmTerm
+#' @title Edges
+#' @description Number of edges in the network.
+#' @details This term adds one network statistic equal to the number of
+#'   edges (i.e. nonzero values) in the network. For undirected networks, `edges`
+#'   is equal to `kstar(1)`; for directed networks, edges is equal to both
+#'   `ostar(1)` and `istar(1)`.
+#'
+#' @usage
+#' # binary: edges1
+#' 
+#' @template ergmTerm-general
+#'
+#' @concept dyad-independent
+#' @concept directed
+#' @concept undirected
+InitErgmTerm.edges1<-function(nw, arglist, ...) {
+  a <- check.ErgmTerm(nw, arglist,
+                      varnames = NULL,
+                      vartypes = NULL,
+                      defaultvalues = list(),
+                      required = NULL)
+  
+  list(name="edges1", coef.names="edges1", dependence=FALSE,
+       minval = 0, maxval = network.dyadcount(nw,FALSE), conflicts.constraints="edges1")
+}
+
+
+
+################################################################################
+                                                                                                                    
+                                                                                                                     
 
 #' @name esp-ergmTerm
 #' @title Edgewise shared partners
