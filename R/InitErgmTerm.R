@@ -209,8 +209,8 @@ InitErgmTerm.triangle1<-function (nw, arglist, ..., version=packageVersion("ergm
 ###################### InitErgmTerm CLIQUE #############################################################################################################   
 InitErgmTerm.clique<-function(nw, arglist, ...) {
   a <- check.ErgmTerm(nw, arglist, directed=FALSE, bipartite=NULL
-                      varnames = NULL,
-                      vartypes = NULL,
+                      varnames = c("a1","a2"),
+                      vartypes = c(),
                       defaultvalues = list(),
                       required = NULL)
   
