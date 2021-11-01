@@ -162,7 +162,8 @@ nodecov_names <- function(nodecov, prefix=NULL){
 # arguments from interfering. Eventually, when base= is removed, it
 # will need to be set to -1 either here or by search-and-replace.
 LEVELS_BASE1 <- NULL
-                                                           
+ 
+################################ test function #######################
 InitErgmTerm.triangle1<-function (nw, arglist, ..., version=packageVersion("ergm")) {
   if(version <= as.package_version("3.9.4")){
     a <- check.ErgmTerm(nw, arglist,
@@ -203,6 +204,24 @@ InitErgmTerm.triangle1<-function (nw, arglist, ..., version=packageVersion("ergm
   }
   list(name="triangle1", coef.names=coef.names, inputs=inputs, minval=0)
 }
+                                                              
+                                                              
+###################### InitErgmTerm CLIQUE #############################################################################################################   
+InitErgmTerm.clique<-function(nw, arglist, ...) {
+  a <- check.ErgmTerm(nw, arglist, directed=FALSE, bipartite=NULL
+                      varnames = NULL,
+                      vartypes = NULL,
+                      defaultvalues = list(),
+                      required = NULL)
+  
+  ### Process the arguments
+  a1 <- ergm_get_vattr("a1", net)
+  a2 <- ergm_get_vattr("a2", net)
+  
+  ### Construct the list to return
+  list(name="clique", coef.names="clique", inputs=c(a1,a2), dependence=FALSE)
+}
+                                                              
 
 
 #=======================InitErgmTerm functions:  A============================#
