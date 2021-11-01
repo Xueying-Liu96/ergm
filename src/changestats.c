@@ -69,7 +69,9 @@ C_CHANGESTAT_FN(c_clique) {
   Vertex change, node3;
   int j;
   double tailattr, edgemult;
-  CHANGE_STAT[0]=1
+  edgemult = edgestate ? -1.0 : 1.0;
+  change=1;
+  CHANGE_STAT[0] += edgemult * change;
   
 }
 
